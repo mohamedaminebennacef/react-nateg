@@ -1,18 +1,23 @@
-import { MouseEvent } from "react";
+import { useState } from "react";
+
 const ListGroup = () => {
   const items: string[] = ["item1", "item2", "item3", "item4"];
-
-  // Event handler
-  const handleClick = (event: MouseEvent) => console.log(event);
-
+  const [selectedIndex,setSelectedIndex] = useState(0);
   return (
     <>
       <h1>List</h1>
       {items.length === 0 && <p>No items Found</p>}
       <ul className="list-group">
-        {items.map((item: string) => (
-          <li className="list-group-item" key={item} onClick={handleClick}>
-            {/*refrence not calling the function*/}
+        {items.map((item: string, index) => (
+          <li
+            className={
+              selectedIndex === index
+                ? "list-group-item active"
+                : "list-group-item"
+            }
+            key={index}
+            onClick={() => setSelectedIndex(index)}
+          >
             {item}
           </li>
         ))}
